@@ -1,0 +1,134 @@
+<div class="page-padding">
+	<div class="swiper-container detai-box" id="detailSwiper">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide" ng-repeat="list in houseDetailInfo.picList">
+				<img data-src="{{list.fullPhotoUrl}}" onerror="javascript:this.src='/images/default_lianjia_big.png';" class="swiper-lazy" alt="{{list.parentCategories}}" width="100%" />
+				<div class="swiper-lazy-preloader"></div>
+			</div>
+		</div>
+		<!-- 如果需要分页器 -->
+		<span class="pic-count"><span class="count-cur">{{currentIndex}}</span>/{{houseDetailInfo.picList.length}}</span>
+	</div>
+
+	<!-- 正常在售的房源 -->
+	<div>
+		<div class="like-box ershoufang-like xiaoquLike">
+			<p class="title" ng-class="{'newsarticleW':$parent.platformObj.platformType == 'newsarticle'}">小区名称：{{houseDetailInfo.property.propertyName|ifNull}}</p>
+			<a href="javascript:;" ng-show="$parent.platformObj.platformType == 'common'"
+			   ng-click="follow()" class="like-btn"><span class="like-icon" ng-class="{'icon-un-like':!houseDetailInfo.property.isFollow,'icon-like':houseDetailInfo.property.isFollow}"></span><p class="payAtt">{{houseDetailInfo.property.isFollow ? '取消关注' : '关注'}}</p></a>
+		</div>
+
+		<div class="p-list">
+			<ul>
+				<li>
+					<span class="half">楼栋数：<span class="d-value">{{houseDetailInfo.property.buildingCount ? houseDetailInfo.property.buildingCount + '栋':'--'}}</span></span>
+					<span>房屋总数：<span class="d-value">{{houseDetailInfo.property.totalRooms ? houseDetailInfo.property.totalRooms + '户' :'--'}}</span></span>
+				</li>
+				<li>
+					<!-- <span class="half">容积率：<span class="d-value">{{houseDetailInfo.property.far ? houseDetailInfo.property.far :'--'}}</span></span> -->
+					<span>建造年代：<span class="d-value">{{houseDetailInfo.property.completeYear ? houseDetailInfo.property.completeYear + '年' : '--'}}</span></span>
+				</li>
+				<!-- <li><span class="half">绿化率：<span class="d-value">{{houseDetailInfo.property.greenRate ? houseDetailInfo.property.greenRate + '%' : '--'}}</span></span></li> -->
+				<li>物业费用：<span class="d-value">{{houseDetailInfo.property.mgtFee ? houseDetailInfo.property.mgtFee + '元/平米/月' : '暂无信息'}}</span></li>
+			</ul>
+		</div>
+
+
+	</div>
+
+	<div class="p-list detai-list lineT">
+		<div class="ershoufang-tap">
+			<h3 style="border-bottom:1px solid #e2e2e2;border-top: none;">{{houseDetailInfo.soldPriceData.updateMonth}}参考均价：<span class="c-orange">{{(houseDetailInfo.soldPriceData.propertyAvg|parseToInt) ? (houseDetailInfo.soldPriceData.propertyAvg|parseToInt)+'元/m²' : '暂无数据'}}</span></h3>
+
+			<!--<div class="tend-map" id="xiaoquChart" style="height:300px;padding-bottom:5px"></div>-->
+
+			<a title="{{houseDetailInfo.property.propertyName}}全部二手房源" href="/ershoufang/q{{houseDetailInfo.property.propertyNo}}">
+				<p class="list-p">全部二手房源 <span class="c-orange">{{houseDetailInfo.property.saleTotal}}</span> 套<span class="icon-go-right"></span></p>
+			</a>
+
+			<a title="{{houseDetailInfo.property.propertyName}}最近一年内二手房成交历史" href="/chengjiao/q{{houseDetailInfo.property.propertyNo}}">
+				<p class="list-p">最近一年内二手房成交历史<span class="c-orange">{{houseDetailInfo.property.soldCount}}</span> 套<span class="icon-go-right"></span></p>
+			</a>
+		</div>
+	</div>
+
+
+
+
+	<a href="javascript:;" ng-click="jumpToNotNgPage(mapUrl)" class="gotomap" title="位置及周边">
+		<div class="p-list detai-list">
+			<h3>位置及周边：[{{houseDetailInfo.property.districtName}}]{{houseDetailInfo.property.plateName}}<span class="icon-go-right"></span></h3>
+			<ul class="map-ul">
+				<li>
+					<div class="detail-map">
+						<img class="lazyload"
+							 src="http://api.map.baidu.com/staticimage?center={{houseDetailInfo.property.longitude}},{{houseDetailInfo.property.latitude}}&amp;width=334&amp;height=253&amp;markers={{houseDetailInfo.property.longitude}},{{houseDetailInfo.property.latitude}}|{{houseDetailInfo.property.longitude}},{{houseDetailInfo.property.latitude}}&amp;zoom=15" />
+					</div>
+				</li>
+			</ul>
+		</div>
+	</a>
+
+</div>
+
+<div style="position: fixed; left: 0px;" ng-show="feedback" class="toast-info">
+	<div class="info-con">
+		<div class="success">
+			<span class="info-icon"></span>
+			<p>{{followState}}</p>
+		</div>
+	</div>
+</div>
+
+<div feedback-box feedback="ajaxFeedback"></div>
+
+<!-- 联系经纪人的部分，如果是已下架的房源，是没有这部分的 -->
+<div class="fixedagentcontact" ng-show="houseDetailInfo.agent && houseDetailInfo.agent.showPhone">
+	<a class="contactlink" ng-click="jumpToNotNgPage(agentjumpurl)" href="javascript:;">
+		<div class="user-img">
+			<img ng-src="{{houseDetailInfo.agent.avatar}}" onerror="javascript:this.src='/sh/static/images/common/agent_default.png';">
+		</div>
+		<div class="user-info">
+			<p>{{houseDetailInfo.agent.userName}}</p>
+			<p>{{houseDetailInfo.agent.showPhone}}</p>
+		</div>
+	</a>
+	<div class="contact_opera">
+		<a class="sms" href="javascript:;" ng-click="sendSMS()" ng-show="houseDetailInfo.agent.phoneNumber">
+			<p class="icon"></p>
+			<p>短信</p>
+		</a>
+		<a class="tel" href="tel:{{houseDetailInfo.agent.realPhone}}" ng-click="trackOutboundLinkAllParam('agent','contact','tel')">
+			<p class="icon"></p>
+			<p>致电</p>
+		</a>
+	</div>
+</div>
+
+<div class="image-layer" ng-click="closeImageLayer()" ng-show="showBigSwiperlayer">
+	<div class="swiper-container detai-box" id="detailBigSwiper" style="top:50%;margin-top:-7.6875rem;">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide" ng-repeat="list in houseDetailInfo.picList">
+				<img data-src="{{list.fullPhotoUrl}}" class="swiper-lazy" alt="{{list.parentCategories}}" height="246" width="100%"/>
+				<div class="swiper-lazy-preloader"></div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<p class="img-title">{{houseDetailInfo.picList[bigCurrentIndex-1].parentCategories}}</p>
+		<p class="img-bottom">{{bigCurrentIndex}}/{{houseDetailInfo.picList.length}}</p>
+	</div>
+</div>
+
+<!-- 遮罩 为了快速点击时不让页面可点击 -->
+<div class="transparentMasker" ng-show="houseDetailLoading"></div>
+
+<!-- loading -->
+<div style="position: fixed; left: 0px;display:block" ng-show="houseDetailLoading" class="toast-info">
+	<div class="info-con">
+		<div class="page-loading">
+			<div class="loading-house"></div>
+			<p>加载中...</p>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,104 @@
+<div>
+    <!-- fast nav -->
+    <div class="home-bg-grey">
+        <div class="home-nav">
+            <ul class="table-layout">
+                <li class="table-cell " ng-repeat="channel in channels">
+                    <a title="{{channel.cityName}}二手房" ng-href="{{channel.href}}" ng-if="!channel.needJump">
+                        <p class="{{channel.className}}"></p>
+                        <p>{{channel.channelName}}</p>
+                    </a>
+
+                    <a title="{{channel.cityName}}二手房" ng-click="jumpToNotNgPage(channel.href)" href="javascript:;" ng-if="channel.needJump">
+                        <p class="{{channel.className}}"></p>
+                        <p>{{channel.channelName}}</p>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+
+        <!-- 广告位 轮播 begin -->
+        <div class="swiper-container home_swiper" id="homeSwiper" style="min-height:95px;" ng-show="advPicList.length > 0">
+
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" ng-repeat="item in advPicList">
+                    <a ng-href="{{item.url}}" target="_blank">
+                        <img ng-src="{{item.advPicUrl}}" alt="" width="100%" />
+                    </a>
+                </div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination" id="homeSwiper-pagination"></div>
+        </div>
+        <!-- 广告位 轮播 end -->
+
+        <!--<div class="p-list detai-list" style="margin-top:15px;padding:0">
+            <h3>二手市场行情</h3>
+            <div class="home-market">
+                <div>
+                    <p class="grey999">最新参考均价</p>
+                    <p class="red"><span class="f-bold" id="dealAvgPrice">{{ershoufangMarketInfo.referAvgPrice|parseToInt}}</span>元/㎡</p>
+                </div>
+                <div>
+                    <p class="grey999"><span id="monthChengjiao">{{ershoufangMarketInfo.month|ifNull}}</span>月成交量</p>
+                    <p class="green"><span class="f-bold" id="dealCount">{{ershoufangMarketInfo.dealCount|ifNull}}</span>套</p>
+                </div>
+            </div>
+        </div>-->
+
+        <div class="toutiao_home mt_15" ng-show="curCityCode == 'sh' && toutiaoList.length > 0">
+            <h3>
+                <a href="/toutiao/list/" class="headlink clear">
+                    <span class="left">房产头条</span>
+                    <span class="right grey666">更多<i class="icon-right-open-big fs_18"></i></span>
+                </a>
+            </h3>
+            <ul class="toutiao_list">
+                <li ng-repeat="list in toutiaoList">
+                    <a href="javascript:;" ng-click="jumpToNotNgDetailPage(list)">
+                        <p class="fs_14 lineH15">{{list.title}}</p>
+                        <p class="clear mt_10">
+                            <span class="left fs_12 toutiao_tag">{{list.catalogName}}</span>
+                            <span class="right fs_14">{{list.updateDate}}</span>
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="p-list ershoufang-list mt_10" id="hotList" ng-show="ershoufangList.length > 0">
+            <h3>热门房源</h3>
+
+            <ul style="border-top:1px solid #e2e2e2" class="fang-list">
+                <li ng-repeat="list in ershoufangList">
+                    <a ui-sref="ershoufang.detail({cityCode:list.cityCode,house_code: list.houseSellId})">
+                        <img ng-src="{{list.mainPhotoUrl}}" onerror="javascript:this.src='/sh/static/images/common/default_lianjia_small.png';">
+                        <div class="info">
+                            <p class="f-title" title="{{list.title}}">{{list.title|ifNull}}</p>
+                            <p class="f-area">{{list.room|ifNull:'0'}}室{{list.hall|ifNull:'0'}}厅  {{list.acreage|parseToInt:'--'}}㎡  {{list.face|ifNull}}</p>
+                            <p class="f-xiaoqu"><span class="xiaoquname">{{list.propertyName|ifNull}}</span><!--<span class="f-unitPrice">{{list.unitPrice|number:0}}元/㎡</span>--></p>
+                            <p class="tags">
+                                <span ng-repeat="tag in list.tagsText" class="{{tag.className}}">{{tag.text}}</span>
+                            </p>
+                            <span class="f-price">{{list.showPrice|number:0}}万</span>
+                        </div>
+                        <div class="xiaoquTag" ng-show="list.isRecommend == 1  && showCommunityInfo">小区推荐</div>
+                    </a>
+                </li>
+            </ul>
+            <a class="homeMore" href="/ershoufang/">更多二手房</a>
+        </div>
+
+    </div>
+
+    <!-- loading -->
+    <div style="position: fixed; left: 0px;" id="pageLoading" class="toast-info" ng-show="hotHouseListLoading">
+        <div class="info-con">
+            <div class="page-loading">
+                <div class="loading-house"></div>
+                <p>加载中...</p>
+            </div>
+        </div>
+    </div>
+</div>

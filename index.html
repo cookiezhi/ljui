@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html ng-class="{'bodyOverflowHidden':bodyOverflowHidden}">
+    <head lang="en">
+        <base href="/" />
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="fullscreen=yes,preventMove=yes" name="ML-Config">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="yes" name="apple-touch-fullscreen">
+        <meta content="telephone=no,email=no" name="format-detection">
+        <meta name="location" content="province=上海;city=上海;coord=121.4804,31.2368">
+        <meta name="description" content="链家上海房产网是上海广受用户好评的手机端房地产平台，提供上海房地产综合信息和交易服务，提供的所有上海房源保证百分之百真实，交易过程安全放心。链家上海房产网提供包括上海二手房、上海新房、上海租房、上海学区房、上海地铁房、上海房地产金融理财、上海房价以及房屋成交数据、上海房产新闻资讯、上海房产百科知识问答等信息和交易服务。">
+        <meta name="keywords" content="上海房产网,上海房地产,上海房产,上海房屋交易,上海房地产交易平台">
+        <title>上海房产网-链家网上海站</title>
+        <link rel="stylesheet" href="css/fontello.css?v=1479137619829">
+        <script>
+		var GlobalParameters = {
+			version:"1.7.7",
+			staticVertion:"1479137619829",
+			env:"production",
+			isBulid:false,
+			mode:"",
+			source:"shanghai",
+			signature:"d263744eb5ec91c093761f0c433995b4",
+			city_code:"sh",
+			city:"上海",
+			cityId:"310000",
+		};
+	</script>
+        <link rel="stylesheet" href="css/all.min.css?version=1479137619829">
+    </head>
+    <!-- showFullScreenMask -->
+    <body ng-class="{'bodyOverflowHidden':bodyOverflowHidden}">
+        <div class="lj-pages" ng-class="{'bodyOverflowHidden':bodyOverflowHidden}">
+            <section class="d-page"  ng-class="{'bodyOverflowHidden':bodyOverflowHidden}">
+                <!-- 白底供今日头条中显示的头 -->
+                <header class="header embedToApp" ng-if="headerType=='newsarticle'" ng-cloak>
+                    <a href="javascript:;" class="logo"title="上海房产网" ></a>
+                    <a ui-sref="citys" class="city">上海
+                        <span class="dir_down"></span>
+                    </a>
+                </header>
+                <header class="header" ng-if="headerType && headerType!='newsarticle' && headerType!='home'" ng-cloak>
+                    <!-- 公用导航 -->
+                    <div ng-if="headerType=='common'">
+                        <a ui-sref="home" class="logo"title="上海房产网" ></a>
+                        <a ui-sref="citys" class="city">上海
+                            <span class="dir_down"></span>
+                        </a>
+                        <a class="app" ng-click="downAppBtn()" ng-if="isWeixinOpen" >
+                            <span class="down-app-icon"></span>
+                            <p>APP</p>
+                        </a>
+                        <a href="{{downloadUrl}}wapysj" target="_blank" class="app" ng-if="!isWeixinOpen" ng-click="trackOutboundLink('shLianjia_wap_head_downloadApp')">
+                            <span class="down-app-icon"></span>
+                            <p>APP</p>
+                        </a>
+                        <a class="my" ui-sref="user.index" ng-hide="hideUserIcon">
+                            <span class="my-icon"></span>
+                            <p>我的</p>
+                        </a>
+                    </div>
+                    <!-- 带返回的导航 -->
+                    <div class="title-nav" ng-if="headerType=='centerLayer'">
+                        <a class="a-left" href="javascript:history.back();" ng-hide="hideBack">返回</a>
+                        <span ng-bind="title"></span>
+                    </div>
+                </header>
+                <!-- 首页的头 -->
+                <header class="home-header " ng-if="headerType && headerType=='home'" ng-cloak>
+                    <div class="slogan">
+                        <img src="images/home_banner_text.png" width="100%" />
+                    </div>
+                    <div class="top-menu">
+                        <a href="/citys" class="city">上海
+                            <span class="dir_down"></span>
+                        </a>
+                        <a class="app" ng-click="downAppBtn()" ng-if="isWeixinOpen" >
+                            <span class="down-app-icon"></span>
+                            <p>APP</p>
+                        </a>
+                        <a href="{{downloadUrl}}wapysj" target="_blank" class="app" ng-if="!isWeixinOpen" ng-click="trackOutboundLink('shLianjia_wap_head_downloadApp')">
+                            <span class="down-app-icon"></span>
+                            <p>APP</p>
+                        </a>
+                        <a class="my" href="/user/index">
+                            <span class="my-icon"></span>
+                            <p>我的</p>
+                        </a>
+                    </div>
+                    <div class="search">
+                        <a href="/search">
+                            <span class="icon-home-search"></span>
+                            <input class="input" disabled="" placeholder="请输入小区名或板块名称">
+                
+                        </a>
+                    </div>
+                </header>
+                <!-- 首页的头 end -->
+                <div ui-view ng-class="{'bodyOverflowHidden':bodyOverflowHidden}"></div>
+                <!-- footer -->
+                <footer class="footer" ng-if="showFootCopyRight" ng-cloak>
+                    <a style="display: block;width:100%;height:100%;">
+                        <img src="images/footer.png">
+                    </a>
+                </footer>
+                <!-- download -->
+                <div download-show show-download="showDownload" download-url="{{downloadUrl}}"></div>
+                <!-- 如果是微信打开 显示弹窗 -->
+                <div class="layer-tip ng-hide" ng-cloak ng-show="showWeixinTips" ng-click="showWeixinTips = !showWeixinTips">
+                    <div class="layer-img"></div>
+                    <div class="layer-content">
+                        <p style="font-size: 30px;">下载不了？</p>
+                        <p class="mt20">因为微信限制，请在右上角选择</p>
+                        <p class="mt10">
+                            <span style="background: #39ac6a;color:#fff">“在浏览器中打开”</span>即可下载
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script type="text/ng-template" id="/sh/static/template/public/citySelect.html">
+            <div class="p-list city-list">
+                <h6>当前定位的城市</h6>
+                <ul>
+                    <li class="show-local">
+                        <a href="javascript:;" ng-click="jumpToNotNgPage(gpsUrl)" ng-if="isGpsSuccess">{{gpsText}}</a>
+                        <span class="get-geo" ng-if="!isGpsSuccess">{{gpsText}}</span>
+                    </li>
+                </ul>
+                <h6>所有城市</h6>
+                <ul>
+                    <li ng-repeat="list in cityList">
+                        <a href="javascript:;" ng-click="jumpToNotNgPage(list.url)">{{list.text}}</a>
+                    </li>
+                </ul>
+            </div>
+        </script>
+        <script type="text/ng-template" id="/sh/static/template/public/search.html">
+            <section class="search-page"
+             lj-sh-autocomplete
+             url="{{searchUrl}}"
+             params="otherParams"
+             result-key="data.items"
+             option-key="text"
+             keyword="query"
+             model-value="{{modelValue}}"
+             placeholder="{{placeholder}}" select-callback="searchCallback(item)">
+    </section>
+        </script>
+        <script src="js/vender/zepto.min.js?v=1479137619829"></script>
+        <script src="js/vender/require.min.js?v=1479137619829"></script>
+        <script src="js/bootstrap.js?v=1479137619829"></script>
+        <!-- 统计相关的库文件 -->
+        <script type="text/javascript">
+    var appVersion="1.7.7";
+    var ga = ga || null;
+    //var $ULOG = $ULOG || null;
+
+    console.log('上海链家_wap_version_v'+appVersion);
+
+
+    //检测当前浏览器是否为微信打开
+    function checkIsWeiXin(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    //检测是否是今日头条中打开
+    function checkIsNewsArticle(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/NewsArticle/i)=="newsarticle") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //检测url中是否含有某些参数
+    function checkUrlHasNoUTM(){
+        var urlStr = window.location.search;
+
+        //如果没有utm的任何一个参数
+        if(urlStr.indexOf('utm_') === -1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+        <!-- 只需到正式环境验收的统计工具:ubt growing lianjiaUlog -->
+        <!-- ubt 工具 -->
+        <script src="js/ljubt.js?v=1479137619829"></script>
+        
+    </body>
+</html>

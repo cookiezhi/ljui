@@ -1,0 +1,22 @@
+{
+    "errno": 0, 
+    "data": {
+        "list": [
+            {
+                "advPicUrl": "/images/data/ad/ad1.jpg", 
+                "title": "活动详情", 
+                "url": "http://m.sh.lianjia.com/activity/abs.html"
+            }, 
+            {
+                "advPicUrl": "/images/data/ad/ad2.png", 
+                "title": "在线挂牌", 
+                "url": "http://vip.dooioo.com/static/html/vipPopular.html"
+            }
+        ], 
+        "homePage": {
+            "countDown": 0, 
+            "title": "正式"
+        }
+    }, 
+    "status": "ok"
+}

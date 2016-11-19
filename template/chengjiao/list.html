@@ -1,0 +1,111 @@
+<!-- search tab -->
+<!--<div class="search-container">
+	<div class="search-type js_search_fixed" ng-class="{'search-type-fixed':pagedata.tabActive,'autoFixed':pagedata.searchTab}">
+		<div class="type-list clear">
+			<a style="width:50%" href="javascript:;" ng-class="{'on':pagedata.tabType == 'price','has-param':pagedata.tabObjText.prices}" ng-click="activeTab('price')">
+				<span class="show-name" title="总价">{{pagedata.tabObjText.prices ? pagedata.tabObjText.prices : '总价' }}</span>
+				<span class="icon-down"></span>
+			</a>
+			<a style="width:50%" href="javascript:;" ng-class="{'on':pagedata.tabType == 'type','has-param':pagedata.tabObjText.roomCount}" ng-click="activeTab('type')">
+				<span class="show-name" title="户型">{{pagedata.tabObjText.roomCount ? pagedata.tabObjText.roomCount : '户型' }}</span>
+				<span class="icon-down"></span>
+			</a>
+		</div>
+		
+
+		<div class="panel price js_directivePrice" ng-show="pagedata.tabActive && pagedata.tabType == 'price'">
+			<div class="search-panel search-price">
+				<div class="panel-cell">
+					<ul>
+						<li class=""><a href="javascript:;" ng-click="selectPrice()">不限</a></li>
+						<li ng-class="{'on':item.checked,'selected':item.checked}" ng-repeat="item in searchFilters.prices"><a href="javascript:;" ng-click="selectPrice(item)">{{item.text}}</a></li>
+						<li class="input-price" esf-switch-price-panel>自定义价格：<input name="ps" type="tel" ng-model="customPriceStart" placeholder="最小">-<input type="tel" name="pe" ng-model="customPriceEnd" placeholder="最大"><button type="button" ng-click="submitPrice()">确定</button></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
+		
+		<div class="panel type" ng-show="pagedata.tabActive && pagedata.tabType == 'type'">
+			<div class="search-panel search-type">
+				<div class="panel-cell check-tag">
+					<ul>
+						<li class="no-icon"><a href="javascript:;" ng-click="selectRoomCount()">不限</a></li>
+						<li ng-class="{'selected':item.checked}" ng-click="selectRoomCount(item)" ng-repeat="item in searchFilters.roomCount"><a href="javascript:;">{{item.text}}<span class="icon-select"></span></a></li>
+					</ul>
+				</div>
+			</div>
+			<p class="searc-sub"><a href="javascript:;" ng-click="submitRoomCount()">确定</a></p>
+		</div>
+	</div>
+</div>
+
+
+<div class="masker" ng-show="pagedata.tabActive" ng-click="hideMasker()"></div>-->
+
+<!-- house lists -->
+<div class="p-list chengjiao-list min-height pd_60" scroll-load is-last-page="isLastPage" is-page-down="isPageDown" show-loading="listLoading">
+	<ul class="fang-list chengjiao-list">
+		<li ng-repeat="list in chengjiaoList">
+			<a ui-sref="chengjiao.detail({cityCode:list.cityCode,house_code: list.houseSellId})">
+				<img ng-src="{{list.mainPhotoUrl}}" onerror="javascript:this.src='/images/default_lianjia_small.png';">
+				<div class="info">
+					<p class="f-title" title="{{list.title}}">{{list.title|ifNull}}</p>
+					<p class="f-xiaoqu">{{list.face}} {{list.floor_state}}</p>
+					<!--<p class="f-area">成交价格：<span>{{list.soldPrice|number:0}}万</span></p>-->
+					<p class="f-area">签约日期：{{list.soldDate | date:'yyyy年MM月dd日'}}</p>
+					<!--<span class="f-price">{{list.soldUnitPrice}}元/平</span>-->
+				</div>
+			</a>
+		</li>
+		
+	</ul>
+	<p class="more-loading" ng-show="listLoading"><span class="list-loading"></span>加载中...</p>
+	
+	<!-- 无符合房源的显示的内容 begin -->
+	<div class="more-loading" ng-show="!listLoading && chengjiaoList.length == 0">
+		<div class="house_none_default">
+			<div class="default-icon"></div>
+			<p class="default-txt">没有找到房源</p>
+			<p class="h2-title">请换个搜索条件试试</p>
+		</div>
+	</div>
+	<!-- 无符合房源的显示的内容 end -->
+</div>
+
+<!-- 显示房源数的浮层 begin -->
+<div style="position: fixed; left: 0px;" ng-show="showListCount" class="toast-info">
+	<div class="info-con">
+		<div class="success">
+			<span class="info-icon"></span>
+			<p>共找到{{totalCount}}套房源</p>
+		</div>
+	</div>
+</div>
+<!-- 显示房源数的浮层 end -->
+
+<div feedback-box feedback="feedbackInfo"></div>
+
+<div class="fixedagentcontact" ng-show="agent && agent.showPhone">
+	<a class="contactlink" ng-click="jumpToNotNgPage(agentjumpurl)" href="javascript:;">
+		<div class="user-img">
+			<img ng-src="{{agent.avatar}}" onerror="javascript:this.src='/sh/static/images/common/agent_default.png'">
+		</div>
+		<div class="user-info">
+			<p>{{agent.userName}}</p>
+			<p>{{agent.showPhone}}</p>
+		</div>
+	</a>
+
+	<div class="contact_opera">
+		<a class="sms" href="javascript:;" ng-click="sendSMS()" ng-show="agent.smsPhone">
+			<p class="icon"></p>
+			<p>短信</p>
+		</a>
+		<a class="tel" href="tel:{{agent.realPhone}}" ng-click="trackOutboundLinkAllParam('agent','contact','tel')">
+			<p class="icon"></p>
+			<p>致电</p>
+		</a>
+	</div>
+</div>

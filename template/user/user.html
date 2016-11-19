@@ -1,0 +1,39 @@
+<div class="user-wrap" ng-class="{'logged':isLogin}">
+	<div class="user-comp">
+		<img src="/images/mine_head.png">
+		<p class="user-num user-info" ng-if="isLogin">欢迎你，<span>{{userInfo.nick_name}}</span></p>
+		<p class="user-num" ng-if="!isLogin">
+			<a ui-sref="user.login" class="btn">登录</a>
+			<a ui-sref="user.register" class="btn">注册</a>
+		</p>
+	</div>
+	<div class="p-list">
+		<ul class="usercenter">
+			<li ng-if="isLogin"><a ui-sref="user.favorHouse">我关注的二手房<span class="icon-go-right"></span></a></li>
+			<li ng-if="!isLogin"><a href="javascript:;" ng-click="checkIsLogin()">我关注的二手房<span class="icon-go-right"></span></a></li>
+
+			<!--  - 政策原因 上海的 先隐藏 -->
+
+			<li ng-if="isLogin"><a ui-sref="user.favorXinfang">我关注的新房<span class="icon-go-right"></span></a></li>
+			<li ng-if="!isLogin"><a href="javascript:;" ng-click="checkIsLogin()">我关注的新房<span class="icon-go-right"></span></a></li>
+
+			<li ng-if="isLogin"><a ui-sref="user.favorProperty">我关注的小区<span class="icon-go-right"></span></a></li>
+			<li ng-if="!isLogin"><a href="javascript:;" ng-click="checkIsLogin()">我关注的小区<span class="icon-go-right"></span></a></li>
+
+			<li ng-if="isLogin"><a ui-sref="user.favorZufang">我关注的租房<span class="icon-go-right"></span></a></li>
+			<li ng-if="!isLogin"><a href="javascript:;" ng-click="checkIsLogin()">我关注的租房<span class="icon-go-right"></span></a></li>
+		</ul>
+	</div>
+	<p class="logout-p" ng-if="isLogin"><a href="http://passport.lianjia.com/cas/logout?service={{refUrl}}" ng-click="logout()">退出登录</a></p>
+</div>
+
+<!--<div style="position: fixed; left: 0px; top: 268px;" class="toast-info" ng-show="showErrFeedBack">
+	<div class="info-con">
+		<div class="fail">
+			<span class="info-icon"></span>
+			<p>请先登录</p>
+		</div>
+	</div>
+</div>-->
+
+<div feedback-box feedback="showErrFeedBack"></div>

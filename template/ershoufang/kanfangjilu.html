@@ -1,0 +1,30 @@
+<div class="p-list daikan-list seerecord-list list-view">
+	<div class="list-ret">
+		<h5>近7天看房客户<span class="c-orange"> {{seeRecordInfo.lookCount7}} </span>位，累计看房<span class="c-orange"> {{seeRecordInfo.lookCount90}} </span> 位</h5>
+		<ul ng-show="seeRecordInfo.see_record_list.length > 0">
+			<li class="list-header">
+				<span class="w-1">看房日期</span>
+				<span class="w-2">带看人(次数)</span>
+				<span>联系电话</span>
+			</li>
+		</ul>
+		<ul scroll-load is-last-page="isLastPage" is-page-down="isPageDown" show-loading="loading">
+			<li ng-repeat="list in seeRecordInfo.see_record_list|limitTo:orderbyindex">
+				<span class="w-1">{{list.lookTime | date:'yyyy-MM-dd'}}</span>
+				<a href="javascript:;" ng-click="jumpToAgentPage(list)" class="w-2">{{list.userName}}({{list.lookCount}})</a>
+				<span ng-if="list.showPhone"><a href="tel:{{list.phone}}" ng-click="trackOutboundLinkAllParam('agent','contact','tel')">{{list.showPhone}}</a></span>
+				<span ng-if="!list.showPhone">暂无联系方式</span>
+			</li>
+		</ul>
+		<ul ng-show="seeRecordInfo.see_record_list.length == 0">
+			<li>
+				暂无看房记录
+			</li>
+		</ul>
+	</div>
+</div>
+
+<!-- loading -->
+<p class="more-loading" ng-show="loading"><span class="list-loading"></span>加载中...</p>
+
+<div feedback-box feedback="ajaxFeedback"></div>

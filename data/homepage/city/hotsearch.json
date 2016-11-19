@@ -1,0 +1,54 @@
+{
+    "errno": 0, 
+    "data": [
+        {
+            "cityCode": "sh", 
+            "showName": "上海康城", 
+            "type": "ershoufang", 
+            "url": "/ershoufang/rs上海康城"
+        }, 
+        {
+            "cityCode": "sh", 
+            "showName": "慧芝湖花园", 
+            "type": "ershoufang", 
+            "url": "/ershoufang/rs慧芝湖花园"
+        }, 
+        {
+            "cityCode": "sh", 
+            "showName": "奥林匹克花园", 
+            "type": "ershoufang", 
+            "url": "/ershoufang/rs奥林匹克花园"
+        }, 
+        {
+            "cityCode": "sh", 
+            "showName": "中远两湾城", 
+            "type": "ershoufang", 
+            "url": "/ershoufang/rs中远两湾城"
+        }, 
+        {
+            "cityCode": "sh", 
+            "showName": "东方曼哈顿", 
+            "type": "ershoufang", 
+            "url": "/ershoufang/rs东方曼哈顿"
+        }, 
+        {
+            "cityCode": "sh", 
+            "showName": "新湖明珠城", 
+            "type": "ershoufang", 
+            "url": "/ershoufang/rs新湖明珠城"
+        }, 
+        {
+            "cityCode": "sh", 
+            "showName": "经纬城市绿洲", 
+            "type": "ershoufang", 
+            "url": "/ershoufang/rs经纬城市绿洲"
+        }, 
+        {
+            "cityCode": "sh", 
+            "showName": "保利西子湾", 
+            "type": "ershoufang", 
+            "url": "/ershoufang/rs保利西子湾"
+        }
+    ], 
+    "status": "ok"
+}

@@ -1,0 +1,299 @@
+<!-- search input -->
+<div class="list-search">
+    <p>
+        <a href="search?keyword={{searchKeyword}}&from=ershoufang">
+            <input type="text" ng-model="searchKeyword" placeholder="请输入小区或板块名" disabled="" class="searc-input">
+            <span class="searc-btn">
+                <span class="icon-search-b"></span>
+            </span>
+        </a>
+    </p>
+</div>
+<!-- search tab -->
+<div class="search-container">
+    <div class="search-type js_search_fixed" ng-class="{'search-type-fixed':pagedata.tabActive,'autoFixed':pagedata.searchTab}">
+        <div class="type-list clear">
+            <a ng-if="showAreaPanel" href="javascript:;" ng-class="{'on':pagedata.tabType == 'area','has-param':pagedata.tabObjText.area}" ng-click="activeTab('area')">
+                <span class="show-name" title="区域">{{pagedata.tabObjText.area ? pagedata.tabObjText.area : '区域' }}</span>
+                <span class="icon-down"></span>
+            </a>
+            <a href="javascript:;" ng-class="{'on':pagedata.tabType == 'price','has-param':pagedata.tabObjText.prices}" ng-click="activeTab('price')">
+                <span class="show-name" title="总价">{{pagedata.tabObjText.prices ? pagedata.tabObjText.prices : '总价' }}</span>
+                <span class="icon-down"></span>
+            </a>
+            <!-- 如果是c打头的进来的，显示面积这部分，区域隐藏 -->
+            <a ng-if="!showAreaPanel" href="javascript:;" ng-class="{'on':pagedata.tabType == 'acreage','has-param':pagedata.tabObjText.acreages}" ng-click="activeTab('acreage')">
+                <span class="show-name" title="面积">{{pagedata.tabObjText.acreages ? pagedata.tabObjText.acreages : '面积' }}</span>
+                <span class="icon-down"></span>
+            </a>
+            <a href="javascript:;" ng-class="{'on':pagedata.tabType == 'type','has-param':pagedata.tabObjText.roomCount}" ng-click="activeTab('type')">
+                <span class="show-name" title="户型">{{pagedata.tabObjText.roomCount ? pagedata.tabObjText.roomCount : '户型' }}</span>
+                <span class="icon-down"></span>
+            </a>
+            <a href="javascript:;" ng-class="{'on':pagedata.tabType == 'more','has-param':pagedata.tabObjText.more}" ng-click="activeTab('more')">
+                <span class="show-name" title="更多">更多</span>
+                <span class="icon-down"></span>
+            </a>
+        </div>
+        <div class="panel area" ng-show="pagedata.tabActive && pagedata.tabType == 'area'">
+            <div class="search-panel search-area" ng-class="{'search-area-open':pagedata.district.district_id}">
+                <!--  区域-板块相关 -->
+                <div class="panel-cell area2">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive}">
+                        <li>
+                            <a href="javascript:;" ng-click="selectDistrict()">不限</a>
+                        </li>
+                        <li ng-repeat="list in districtlist.district" ng-class="{'on':list.district_id == pagedata.district.district_id}">
+                            <a href="javascript:;" ng-click="selectDistrict(list)">{{list.district_name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-cell area3">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive && pagedata.district && pagedata.district.district_id}">
+                        <li>
+                            <a href="javascript:;" ng-click="selectBizcircle()">不限</a>
+                        </li>
+                        <li ng-repeat="list in pagedata.district.bizcircle" ng-class="{'on':list.bizcircle_id == pagedata.bizcircle.bizcircle_id}">
+                            <a href="javascript:;" ng-click="selectBizcircle(list)">{{list.bizcircle_name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel price js_directivePrice" ng-show="pagedata.tabActive && pagedata.tabType == 'price'">
+            <div class="search-panel search-price">
+                <div class="panel-cell">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive}">
+                        <li class="">
+                            <a href="javascript:;" ng-click="selectPrice()">不限</a>
+                        </li>
+                        <li ng-class="{'on':item.checked,'selected':item.checked}" ng-repeat="item in searchFilters.prices">
+                            <a href="javascript:;" ng-click="selectPrice(item)">{{item.text}}</a>
+                        </li>
+                        <li class="input-price" esf-switch-price-panel>自定义价格：
+                            <input name="ps" type="tel" ng-model="customPriceStart" placeholder="最小">-
+                            <input type="tel" name="pe" ng-model="customPriceEnd" placeholder="最大">
+                            <button type="button" ng-click="submitPrice()">确定</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel acreage" ng-show="pagedata.tabActive && pagedata.tabType == 'acreage'">
+            <div class="search-panel search-price">
+                <div class="panel-cell">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive}">
+                        <li>
+                            <a href="javascript:;" ng-click="selectTabAcreage()">不限</a>
+                        </li>
+                        <li ng-class="{'on':item.checked,'selected':item.checked}" ng-repeat="item in searchFilters.acreages">
+                            <a href="javascript:;" ng-click="selectTabAcreage(item)">{{item.text}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel type" ng-show="pagedata.tabActive && pagedata.tabType == 'type'">
+            <div class="search-panel search-type">
+                <div class="panel-cell check-tag">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive}">
+                        <li class="no-icon">
+                            <a href="javascript:;" ng-click="selectRoomCount()">不限</a>
+                        </li>
+                        <li ng-class="{'selected':item.checked}" ng-click="selectRoomCount(item)" ng-repeat="item in searchFilters.roomCount">
+                            <a href="javascript:;">{{item.text}}
+                                <span class="icon-select"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="searc-sub">
+                <a href="javascript:;" ng-click="submitRoomCount()">确定</a>
+            </p>
+        </div>
+        <div class="panel more" ng-show="pagedata.tabActive && pagedata.tabType == 'more'">
+            <div class="search-panel search-more">
+                <div class="panel-cell more1">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive}">
+                        <li ng-class="{'on':pagedata.subTabType == 'sort','hasChecked':pagedata.subTab.sort}">
+                            <a ng-click="activeMoreTab('sort')" href="javascript:;">排序</a>
+                        </li>
+                        <li ng-class="{'on':pagedata.subTabType == 'orientation','hasChecked':pagedata.subTab.orientation}">
+                            <a ng-click="activeMoreTab('orientation')" href="javascript:;">朝向</a>
+                        </li>
+                        <li ng-if="showAreaPanel" ng-class="{'on':pagedata.subTabType == 'acreage','hasChecked':pagedata.subTab.acreages}">
+                            <a ng-click="activeMoreTab('acreage')" href="javascript:;">面积</a>
+                        </li>
+                        <li ng-class="{'on':pagedata.subTabType == 'tag','hasChecked':pagedata.subTab.tags}">
+                            <a ng-click="activeMoreTab('tag')" href="javascript:;">标签</a>
+                        </li>
+                        <li ng-class="{'on':pagedata.subTabType == 'house_year','hasChecked':pagedata.subTab.house_year}">
+                            <a ng-click="activeMoreTab('house_year')" href="javascript:;">房龄</a>
+                        </li>
+                        <li ng-class="{'on':pagedata.subTabType == 'floor_level','hasChecked':pagedata.subTab.floor_level}">
+                            <a ng-click="activeMoreTab('floor_level')" href="javascript:;">楼层</a>
+                        </li>
+                        <!--<li ng-class="{'on':pagedata.subTabType == 'houseid'}"><a ng-click="activeMoreTab('houseid')" href="javascript:;">房源编号</a></li>-->
+					
+                    </ul>
+                </div>
+                <!-- 排序 单选 -->
+                <div class="panel-cell more2 more-tag2" ng-if="pagedata.subTabType == 'sort'">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive && pagedata.subTabType}">
+                        <li>
+                            <a href="javascript:;" ng-click="selectSort()">默认排序</a>
+                        </li>
+                        <li ng-class="{'on':item.checked,'selected':item.checked}" ng-repeat="item in searchFilters.sort" >
+                            <a href="javascript:;" ng-click="selectSort(item)">{{item.text}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 朝向 多选 -->
+                <div class="panel-cell more2  more-tag" ng-if="pagedata.subTabType == 'orientation'">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive && pagedata.subTabType}">
+                        <li class="no-icon">
+                            <a href="javascript:;" ng-click="selectOrientation()">不限</a>
+                        </li>
+                        <li ng-class="{'selected':item.checked}" ng-click="selectOrientation(item)" ng-repeat="item in searchFilters.orientation">
+                            <a href="javascript:;">{{item.text}}
+                                <span class="icon-select"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 面积 单选 -->
+                <div class="panel-cell more2 more-tag2" ng-if="pagedata.subTabType == 'acreage'">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive && pagedata.subTabType}">
+                        <li>
+                            <a href="javascript:;" ng-click="selectAcreage()">不限</a>
+                        </li>
+                        <li ng-class="{'on':item.checked,'selected':item.checked}" ng-repeat="item in searchFilters.acreages">
+                            <a href="javascript:;" ng-click="selectAcreage(item)">{{item.text}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 标签 多选 -->
+                <div class="panel-cell more2  more-tag" ng-if="pagedata.subTabType == 'tag'">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive && pagedata.subTabType}">
+                        <li class="no-icon">
+                            <a href="javascript:;" ng-click="selectTags()">不限</a>
+                        </li>
+                        <li ng-class="{'selected':item.checked}" ng-click="selectTags(item)" ng-repeat="item in searchFilters.tags">
+                            <a href="javascript:;">{{item.text}}
+                                <span class="icon-select"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 房龄 单选 -->
+                <div class="panel-cell more2 more-tag2" ng-if="pagedata.subTabType == 'house_year'">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive && pagedata.subTabType}">
+                        <li>
+                            <a href="javascript:;" ng-click="selectHouseYear()">不限</a>
+                        </li>
+                        <li ng-class="{'on':item.checked,'selected':item.checked}" ng-repeat="item in searchFilters.house_year">
+                            <a href="javascript:;" ng-click="selectHouseYear(item)">{{item.text}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 楼层 多选 -->
+                <div class="panel-cell more2  more-tag" ng-if="pagedata.subTabType == 'floor_level'">
+                    <ul ng-class="{'searchAreaScroll':pagedata.tabActive && pagedata.subTabType}">
+                        <li class="no-icon">
+                            <a href="javascript:;" ng-click="selectFloorLevel()">不限</a>
+                        </li>
+                        <li ng-class="{'selected':item.checked}" ng-click="selectFloorLevel(item)" ng-repeat="item in searchFilters.floor_level">
+                            <a href="javascript:;">{{item.text}}
+                                <span class="icon-select"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--<div class="panel-cell more2 more-tag2" ng-if="pagedata.subTabType == 'houseid'"><ul class="house-code"><li><input placeholder="请输入房源编号" ng-model="pagedata.houseid"></li>
+					</ul>
+				</div>-->
+			
+            </div>
+            <p class="searc-sub">
+                <a href="javascript:;" ng-click="submitMoreFilters()">确定</a>
+            </p>
+        </div>
+    </div>
+</div>
+<!-- 遮罩 -->
+<div class="masker" ng-show="pagedata.tabActive" ng-click="hideMasker()"></div>
+<a class="erfXiaoquDetail" ng-if="showCommunityInfo" ui-sref="xiaoqu.detail({community_id: curCommunityInfo.propertyNo})">
+    <p class="clear">
+        <span class="xiaoquinfoline left">
+            <span class="xiaoqu">{{curCommunityInfo.propertyName}}</span>
+            <span class="grey999">{{curCommunityInfo.completeYear}}年</span>
+        </span>
+        <span class="xiaoqulink right grey999 pos_r" >
+            <span>小区详情</span>
+            <span class="icon-go-right"></span>
+        </span>
+    </p>
+    <p class="clear">
+        <!--<span class="grey999">类型：</span><span>{{curCommunityInfo.houseType2}}</span>-->
+        <span class="left areainfoline">
+            <span class="grey999">{{curCommunityInfo.districtName}}</span>
+            <span class="grey999"> {{curCommunityInfo.plateName}}</span>
+        </span>
+        <!--<span class="grey999 year">年代：</span>-->
+        <span class="right">
+            <span class="grey999">均价:</span>
+            <span class="c-orange">{{curCommunityInfo.saleAvgPrice}}</span>元/㎡
+        </span>
+    </p>
+</a>
+<!-- house lists -->
+<div class="p-list ershoufang-list" scroll-load is-last-page="isLastPage" is-page-down="isPageDown" show-loading="listLoading" search-tab="pagedata.searchTab">
+    <!--<ul ng-include="abTestUrl" class="fang-list"
+		ng-class="{'esf-planB':esfListHtmlType == 'planB','esf-planC':esfListHtmlType == 'planC','esf-planD':esfListHtmlType == 'planD'}"></ul>
+-->
+    <ul class="fang-list">
+        <li ng-repeat="list in ershoufangList">
+            <a ui-sref="ershoufang.detail({cityCode:list.cityCode,house_code: list.houseSellId})">
+                <img ng-src="{{list.mainPhotoUrl}}" onerror="javascript:this.src='/sh/static/images/common/default_lianjia_small.png';">
+                <div class="info">
+                    <p class="f-title" title="{{list.title}}">{{list.title|ifNull}}</p>
+                    <p class="f-area">{{list.room|ifNull:'0'}}室{{list.hall|ifNull:'0'}}厅  {{list.acreage|parseToInt:'--'}}㎡  {{list.face|ifNull}}</p>
+                    <p class="f-xiaoqu">
+                        <span class="xiaoquname">{{list.propertyName|ifNull}}</span>
+                        <!--<span class="f-unitPrice">{{list.unitPrice|number:0}}元/㎡</span>-->
+                    </p>
+                    <p class="tags">
+                        <span ng-repeat="tag in list.tagsText" class="{{tag.className}}">{{tag.text}}</span>
+                    </p>
+                    <span class="f-price">{{list.showPrice|number:0}}万</span>
+                </div>
+                <div class="xiaoquTag" ng-show="list.isRecommend == 1  && showCommunityInfo">小区推荐</div>
+            </a>
+        </li>
+    </ul>
+    <p class="more-loading" ng-show="listLoading">
+        <span class="list-loading"></span>加载中...
+    </p>
+    <!-- 无符合房源的显示的内容 begin -->
+    <div class="more-loading" ng-show="!listLoading && ershoufangList.length == 0">
+        <div class="house_none_default">
+            <div class="default-icon"></div>
+            <p class="default-txt">没有找到房源</p>
+            <p class="h2-title">请换个搜索条件试试</p>
+        </div>
+    </div>
+    <!-- 无符合房源的显示的内容 end -->
+
+</div>
+<!-- 显示房源数的浮层 begin -->
+<div style="position: fixed; left: 0px;" ng-show="showListCount" class="toast-info">
+    <div class="info-con">
+        <div class="success">
+            <span class="info-icon"></span>
+            <p>共找到{{totalCount}}套房源</p>
+        </div>
+    </div>
+</div>
+<!-- 显示房源数的浮层 end -->
+<div feedback-box feedback="feedbackInfo"></div>

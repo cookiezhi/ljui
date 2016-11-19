@@ -1,0 +1,145 @@
+{
+    "errno": 0, 
+    "data": {
+        "empList": [
+            {
+                "avatar": "/images/data/staff/staff_150x200.jpg", 
+                "commentCount": 0, 
+                "count": "2", 
+                "custStatus": 0, 
+                "display": 1, 
+                "extNumber": "104260", 
+                "hostNumber": "02151125698", 
+                "manager": false, 
+                "phone": "02151125698,104260", 
+                "phoneNumber": "15000159289", 
+                "positionId": 1, 
+                "propertyId": "5011000017964                   ", 
+                "score": 9797, 
+                "status": 1, 
+                "userCode": "155408", 
+                "userName": "徐慧芳", 
+                "userTitle": "物业顾问"
+            }
+        ], 
+        "picList": [
+            {
+                "fullPhotoUrl": "/images/data/xiaoqu/detail.jpg.600x450.jpg", 
+                "photoName": "实景图-其它"
+            }, 
+            {
+                "fullPhotoUrl": "/images/data/xiaoqu/detail.jpg.600x450.jpg", 
+                "photoName": "实景图-其它"
+            }, 
+            {
+                "fullPhotoUrl": "/images/data/xiaoqu/detail.jpg.600x450.jpg", 
+                "photoName": "实景图-其它"
+            }, 
+            {
+                "fullPhotoUrl": "/images/data/xiaoqu/detail.jpg.600x450.jpg", 
+                "photoName": "实景图-其它"
+            }, 
+            {
+                "fullPhotoUrl": "/images/data/xiaoqu/detail.jpg.600x450.jpg", 
+                "photoName": "实景图-其它"
+            }, 
+            {
+                "fullPhotoUrl": "/images/data/xiaoqu/detail.jpg.600x450.jpg", 
+                "photoName": "实景图-其它"
+            }, 
+            {
+                "fullPhotoUrl": "/images/data/xiaoqu/detail.jpg.600x450.jpg", 
+                "photoName": "实景图-其它"
+            },
+            {
+                "fullPhotoUrl": "/images/data/xiaoqu/detail.jpg.600x450.jpg", 
+                "photoName": "实景图-其它"
+            }
+        ], 
+        "property": {
+            "allSpell": "kailusancun,klsc", 
+            "buildingCount": 73, 
+            "changeRate": 6.58, 
+            "cityCode": "sh", 
+            "completeYear": 1997, 
+            "dealAvgPrice": 48188, 
+            "districtName": "杨浦", 
+            "districtSpelling": "yangpu", 
+            "far": 0, 
+            "greenRate": 0, 
+            "hotImage": "http://image3.lianjia.com/hdic-resblock/21557237-7a25-472c-823d-cb2b051b0e05.jpg.200x150.jpg", 
+            "houseType": "住宅 - 公寓", 
+            "houseType2": "住宅等", 
+            "isFollow": false, 
+            "latitude": 31.329536, 
+            "longitude": 121.535785, 
+            "metroRemark": "距离8号线市光路站284米", 
+            "mgtCompany": "上海君晟物业管理有限公司", 
+            "mgtFee": 0, 
+            "plateId": "611900112", 
+            "plateName": "中原", 
+            "plateSpelling": "zhongyuan1", 
+            "propertyAddress": "开鲁三村", 
+            "propertyAge": 19, 
+            "propertyName": "开鲁三村", 
+            "propertyNo": "5011000017964", 
+            "putAway": 1, 
+            "referAvgPrice": 48188, 
+            "referChangeRate": 6, 
+            "rentTotal": 10, 
+            "saleAvgPrice": 52565, 
+            "saleChangeRate": -5.69, 
+            "saleTotal": 9, 
+            "soldCount": 33, 
+            "totalRooms": 1592, 
+            "webUrl": "http://sh.lianjia.com/xiaoqu/5011000017964.html"
+        }, 
+        "soldPriceData": {
+            "propertyAvgList": [
+                29675, 
+                33585, 
+                30567, 
+                32039, 
+                31593, 
+                33225, 
+                44082, 
+                42133, 
+                41690, 
+                46222, 
+                45214, 
+                48188
+            ], 
+            "updateMonth": "2016年10月", 
+            "propertyAvg": 48188, 
+            "plateAvgList": [
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0
+            ], 
+            "monthList": [
+                "11月", 
+                "12月", 
+                "1月", 
+                "2月", 
+                "3月", 
+                "4月", 
+                "5月", 
+                "6月", 
+                "7月", 
+                "8月", 
+                "9月", 
+                "10月"
+            ]
+        }
+    }, 
+    "status": "ok"
+}

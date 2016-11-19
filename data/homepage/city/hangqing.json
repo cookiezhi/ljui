@@ -1,0 +1,14 @@
+{
+    "errno": 0, 
+    "data": {
+        "lastSaleAvgPrice": 55234, 
+        "saleAvgPrice": 57597, 
+        "month": 10, 
+        "year": 2016, 
+        "lastDealCount": 6202, 
+        "referAvgPrice": 53295, 
+        "dealCount": 4355, 
+        "dealAvgPrice": 53295
+    }, 
+    "status": "ok"
+}

@@ -1,0 +1,291 @@
+<div class="page-padding min-height">
+    <div class="swiper-container detai-box" id="detailSwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" ng-repeat="list in houseDetailInfo.picList">
+                <img data-src="{{list.fullPhotoUrl}}" onerror="javascript:this.src='/images/default_lianjia_big.png';" class="swiper-lazy" alt="{{list.parentCategories}}" width="100%" />
+                <div class="swiper-lazy-preloader"></div>
+            </div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <span class="pic-count">
+            <span class="count-cur">{{currentIndex}}</span>/{{houseDetailInfo.picList.length}}
+        </span>
+        <!-- 已成交、已下架的房源 -->
+        <div class="houseStatusTag" ng-if="houseDetailInfo.houseSell.putAwayText == 'off'">
+            <!--<img src="/sh/static/images/detail/tag_yiqianyue.png" ng-if="houseDetailInfo.houseSell.putAwayText == 'sold'" width="100%" />-->
+            <img src="/images/tag_yixiajia.png" width="100%" />
+        </div>
+    </div>
+    <!-- 正常在售的房源 -->
+    <div  ng-show="houseDetailInfo.houseSell && houseDetailInfo.houseSell.putAwayText == 'sale'">
+        <div class="like-box ershoufang-like">
+            <p class="title" ng-class="{'newsarticleW':$parent.platformObj.platformType == 'newsarticle'}" title="{{houseDetailInfo.houseSell.title}}">{{houseDetailInfo.houseSell.title|ifNull}}</p>
+            <a href="javascript:;"  ng-show="$parent.platformObj.platformType == 'common'"
+			   ng-click="follow()" class="like-btn">
+                <span class="like-icon" ng-class="{'icon-un-like':!houseDetailInfo.houseSell.isFollow,'icon-like':houseDetailInfo.houseSell.isFollow}"></span>
+                <p class="payAtt">{{houseDetailInfo.houseSell.isFollow ? '取消关注' : '关注'}}</p>
+            </a>
+        </div>
+        <div class="main-detail">
+            <div>
+                <p>售价</p>
+                <p class="c-orange">{{houseDetailInfo.houseSell.showPrice|number:0}}万</p>
+            </div>
+            <div>
+                <p>户型</p>
+                <p class="c-orange">{{houseDetailInfo.houseSell.room ? houseDetailInfo.houseSell.room + '室' : ''}}{{houseDetailInfo.houseSell.hall ? houseDetailInfo.houseSell.hall+'厅' : ''}}</p>
+            </div>
+            <div>
+                <p>面积</p>
+                <p class="c-orange">{{houseDetailInfo.houseSell.acreage ? (houseDetailInfo.houseSell.acreage|parseToInt) + '㎡' : ''}}</p>
+            </div>
+        </div>
+        <div class="p-list" style="border-bottom: 1px solid #e2e2e2;">
+            <ul>
+                <li>
+					特点：
+					
+                    <span class="tags">
+                        <span ng-repeat="tag in houseDetailInfo.houseSell.tagsText" class="{{tag.className}}">{{tag.text}}</span>
+                    </span>
+                </li>
+                <li>
+					单价：
+					
+                    <span class="d-value">{{houseDetailInfo.houseSell.unitPrice ? (houseDetailInfo.houseSell.unitPrice|number:0) + '元/平米' : ''}}</span>
+                </li>
+                <li>
+                    <span class="half">
+						首付：
+						
+                        <span class="d-value">{{houseDetailInfo.houseSell.firstPay ? (houseDetailInfo.houseSell.firstPay|num1) + '万' : ''}}</span>
+                    </span>
+                    <span>
+						月供：
+						
+                        <span class="d-value">{{houseDetailInfo.houseSell.monthPay ? (houseDetailInfo.houseSell.monthPay|number:0)+'元' : ''}}</span>
+                    </span>
+                </li>
+                <li>
+                    <span class="half">
+						楼层：
+						
+                        <span class="d-value">{{houseDetailInfo.houseSell.floorTypeName|ifNull}}/{{houseDetailInfo.houseSell.totalFloor}}层</span>
+                    </span>
+                    <span>
+						朝向：
+						
+                        <span class="d-value">{{houseDetailInfo.houseSell.face|ifNull}}</span>
+                    </span>
+                </li>
+                <li>
+                    <span class="half">
+						装修：
+						
+                        <span class="d-value">{{houseDetailInfo.houseSell.decoration|ifNull}}</span>
+                    </span>
+                    <span>
+						类型：
+						
+                        <span class="d-value">{{houseDetailInfo.houseSell.type|ifNull}}</span>
+                    </span>
+                </li>
+                <li class="nowrap">
+                    <span class="half">
+						年代：
+						
+                        <span class="d-value">{{houseDetailInfo.houseSell.buildingYear ? houseDetailInfo.houseSell.buildingYear+'年' : ''}}</span>
+                    </span>
+                    <span>
+						编号：
+						
+                        <span class="d-value">{{houseDetailInfo.houseSell.cityCode}}{{houseDetailInfo.houseSell.id|ifNull}}</span>
+                    </span>
+                </li>
+                <li ng-if="houseDetailInfo.property.schoolRemarkArr.length > 0">
+						学区：
+						
+                    <!--<span class="d-value">{{houseDetailInfo.school_info[0].school_name|ifNull}}</span>-->
+                    <span class="d-value">{{houseDetailInfo.property.schoolRemarkArr[0]|ifNull}}</span>
+                    <!-- <span class="icon-go-right"></span> -->
+
+				
+                </li>
+                <li ng-if="houseDetailInfo.property.metroRemark">
+                    <span class="left">地铁：</span>
+                    <p class="d-value">{{houseDetailInfo.property.metroRemark|ifNull}}</p>
+                </li>
+                <li>
+                    <!-- ui-sref="xiaoqu.detail({community_id:houseDetailInfo.property.propertyNo})" -->
+                    <!-- /xiaoqu/{{houseDetailInfo.property.propertyNo}}.html -->
+                    <a href="/xiaoqu/{{houseDetailInfo.property.propertyNo}}.html">
+						小区：
+						
+                        <span class="d-value">{{houseDetailInfo.property.propertyName|ifNull}}</span>
+                        <span class="icon-go-right"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- 联系更多经纪人 -->
+        <more-contact-agents agents="houseDetailInfo.agents"
+							 put-away-text="houseDetailInfo.houseSell.putAwayText"
+							 house-type="ershoufang"
+							 agentfrom="{{searchparams.agentfrom}}"
+							 houseid="{{house_code}}"
+							 sms-content="smsContent"
+							 style="margin-top: 10px;"></more-contact-agents>
+        <!-- 这个a标签为了处理 如果只有描述有 就会有框框 -->
+        <div class="p-list detai-list" ng-show="!houseDetailInfo.houseSell.noDesc">
+            <h3>经纪人房评</h3>
+            <ul>
+                <li class="comment-detail" >
+                    <div ng-class="{'packup':needMultEllip}">
+                        <div ng-class="{'multEllipsis5':needMultEllip}">
+							{{houseDetailInfo.houseSell.hexinmaidian ? '【核心卖点】' + houseDetailInfo.houseSell.hexinmaidian : ''}}
+							
+                            <br ng-if="houseDetailInfo.houseSell.hexinmaidian">
+
+							{{houseDetailInfo.houseSell.huxingjieshao ? '【户型介绍】' + houseDetailInfo.houseSell.huxingjieshao : ''}}
+							
+                            <br ng-if="houseDetailInfo.houseSell.huxingjieshao">
+
+							{{houseDetailInfo.houseSell.zhuangxiumiaoshu ? '【装修描述】' + houseDetailInfo.houseSell.zhuangxiumiaoshu : ''}}
+							
+                            <br ng-if="houseDetailInfo.houseSell.zhuangxiumiaoshu">
+
+							{{houseDetailInfo.houseSell.shuifeijiexi ? '【税费解析】' + houseDetailInfo.houseSell.shuifeijiexi : ''}}
+							
+                            <br ng-if="houseDetailInfo.houseSell.shuifeijiexi">
+
+							{{houseDetailInfo.houseSell.shoufangyuanyin ? '【售房原因】' + houseDetailInfo.houseSell.shoufangyuanyin : ''}}
+							
+                            <br ng-if="houseDetailInfo.houseSell.shoufangyuanyin">
+
+							{{houseDetailInfo.houseSell.touzifenxi ? '【投资分析】' + houseDetailInfo.houseSell.touzifenxi : ''}}
+							
+                            <br ng-if="houseDetailInfo.houseSell.touzifenxi">
+
+							{{houseDetailInfo.houseSell.jiaotongchuxing ? '【交通出行】' + houseDetailInfo.houseSell.jiaotongchuxing : ''}}
+							
+                            <br ng-if="houseDetailInfo.houseSell.jiaotongchuxing">
+
+							{{houseDetailInfo.houseSell.xuequjieshao ? '【学区介绍】' + houseDetailInfo.houseSell.xuequjieshao : ''}}
+							
+                            <br ng-if="houseDetailInfo.houseSell.xuequjieshao">
+
+							{{houseDetailInfo.houseSell.zhoubianpeitao ? '【周边配套】' + houseDetailInfo.houseSell.zhoubianpeitao : ''}}
+							
+                            <br ng-if="houseDetailInfo.houseSell.zhoubianpeitao">
+
+							{{houseDetailInfo.houseSell.xiaoqujieshao ? '【小区介绍】' + houseDetailInfo.houseSell.xiaoqujieshao : ''}}
+
+						
+                        </div>
+                        <div ng-click="switchMultEllipsis()" class="moreArrowIcon" ng-class="{'showMoreArrow':needMultEllip,'hideMoreArrow':!needMultEllip}">
+                            <span></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="p-list detai-list" ng-click="gotoSeeRecordPage()" ng-show="houseDetailInfo.houseSell && houseDetailInfo.houseSell.lookCount90 > 0">
+            <h3>客户看房记录
+                <span class="icon-go-right"></span>
+            </h3>
+            <ul>
+                <li>
+					近7天新增
+					
+                    <span class="c-orange-bg">{{houseDetailInfo.houseSell.lookCount7}}</span>
+					位看房客户，共
+                    <span class="c-orange-bg">{{houseDetailInfo.houseSell.lookCount90}}</span> 位
+                </li>
+            </ul>
+        </div>
+        <a href="javascript:;" ng-click="jumpToNotNgPage(mapUrl)" class="gotomap" title="位置及周边">
+            <div class="p-list detai-list">
+                <h3>位置及周边：[{{houseDetailInfo.property.districtName}}]{{houseDetailInfo.property.plateName}}
+                    <span class="icon-go-right"></span>
+                </h3>
+                <ul class="map-ul">
+                    <li>
+                        <div class="detail-map">
+                            <img class="lazyload"
+								 src="http://api.map.baidu.com/staticimage?center={{houseDetailInfo.property.longitude}},{{houseDetailInfo.property.latitude}}&amp;width=334&amp;height=253&amp;markers={{houseDetailInfo.property.longitude}},{{houseDetailInfo.property.latitude}}|{{houseDetailInfo.property.longitude}},{{houseDetailInfo.property.latitude}}&amp;zoom=15" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </a>
+    </div>
+    <div ng-show="houseDetailInfo.houseSell && houseDetailInfo.houseSell.putAwayText != 'sale'" ng-cloak>
+        <div class="p-list">
+            <ul>
+                <li>
+                    <p class="title" title="{{houseDetailInfo.houseSell.title}}">{{houseDetailInfo.houseSell.title|ifNull}}</p>
+                </li>
+            </ul>
+        </div>
+        <div class="main-detail">
+            <div>
+                <p>售价</p>
+                <p class="c-orange">{{houseDetailInfo.houseSell.showPrice|number:0}}万</p>
+            </div>
+            <div>
+                <p>户型</p>
+                <p class="c-orange">{{houseDetailInfo.houseSell.room ? houseDetailInfo.houseSell.room + '室' : ''}}{{houseDetailInfo.houseSell.hall ? houseDetailInfo.houseSell.hall+'厅' : ''}}</p>
+            </div>
+            <div>
+                <p>面积</p>
+                <p class="c-orange">{{houseDetailInfo.houseSell.acreage ? (houseDetailInfo.houseSell.acreage|parseToInt) + '㎡' : ''}}</p>
+            </div>
+        </div>
+        <div class="detailGuideMore" ng-show="$parent.platformObj.platformType == 'common' && $parent.constants.cityCode == 'sh'">
+            <a class="downBtn" ng-click="$parent.downAppBtn()" ng-if="$parent.isWeixinOpen">立即下载</a>
+            <a class="downBtn" ng-href="{{$parent.downloadUrl}}wapljk" ng-if="!$parent.isWeixinOpen">立即下载</a>
+            <p>{{houseDetailInfo.houseSell.putAwayText == 'sold' ? '查看更多成交房源详情请下载APP' : '查看更多房源请下载APP'}}</p>
+        </div>
+    </div>
+</div>
+<div style="position: fixed; left: 0px;" ng-show="feedback" class="toast-info">
+    <div class="info-con">
+        <div class="success">
+            <span class="info-icon"></span>
+            <p>{{followState}}</p>
+        </div>
+    </div>
+</div>
+<div feedback-box feedback="ajaxFeedback"></div>
+<!-- 联系经纪人的部分，如果是已下架的房源，是没有这部分的 -->
+<first-contact-agent agents="houseDetailInfo.agents"
+					 put-away-text="houseDetailInfo.houseSell.putAwayText"
+					 house-type="ershoufang"
+					 sms-content="smsContent"
+					 agentfrom="{{searchparams.agentfrom}}"
+					 houseid="{{house_code}}"></first-contact-agent>
+<div class="image-layer" ng-click="closeImageLayer()" ng-show="showBigSwiperlayer">
+    <div class="swiper-container detai-box" id="detailBigSwiper" style="top:50%;margin-top:-7.6875rem;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" ng-repeat="list in houseDetailInfo.picList">
+                <img data-src="{{list.fullPhotoUrl}}" class="swiper-lazy" alt="{{list.parentCategories}}" height="246" width="100%"/>
+                <div class="swiper-lazy-preloader"></div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p class="img-title">{{houseDetailInfo.picList[bigCurrentIndex-1].parentCategories}}</p>
+        <p class="img-bottom">{{bigCurrentIndex}}/{{houseDetailInfo.picList.length}}</p>
+    </div>
+</div>
+<!-- 遮罩 -->
+<div class="transparentMasker" ng-show="houseDetailLoading"></div>
+<!-- loading -->
+<div style="position: fixed; left: 0px;display:block" ng-show="houseDetailLoading" class="toast-info">
+    <div class="info-con">
+        <div class="page-loading">
+            <div class="loading-house"></div>
+            <p>加载中...</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="p-list city-list">
+    <h6>当前定位的城市</h6>
+    <ul>
+        <li class="show-local">
+            <a href="{{gpsUrl}}" ng-if="isGpsSuccess">{{gpsText}}</a>
+            <span class="get-geo" ng-if="!isGpsSuccess">{{gpsText}}</span>
+        </li>
+    </ul>
+    <h6>所有城市</h6>
+    <ul>
+        <li ng-repeat="list in cityList">
+            <a ng-href="{{list.url}}">{{list.text}}</a>
+        </li>
+    </ul>
+</div>
