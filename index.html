@@ -108,95 +108,12 @@
                 </footer>
                 <!-- download -->
                 <div download-show show-download="showDownload" download-url="{{downloadUrl}}"></div>
-                <!-- 如果是微信打开 显示弹窗 -->
-                <div class="layer-tip ng-hide" ng-cloak ng-show="showWeixinTips" ng-click="showWeixinTips = !showWeixinTips">
-                    <div class="layer-img"></div>
-                    <div class="layer-content">
-                        <p style="font-size: 30px;">下载不了？</p>
-                        <p class="mt20">因为微信限制，请在右上角选择</p>
-                        <p class="mt10">
-                            <span style="background: #39ac6a;color:#fff">“在浏览器中打开”</span>即可下载
-                        </p>
-                    </div>
-                </div>
             </section>
         </div>
-        <script type="text/ng-template" id="/sh/static/template/public/citySelect.html">
-            <div class="p-list city-list">
-                <h6>当前定位的城市</h6>
-                <ul>
-                    <li class="show-local">
-                        <a href="javascript:;" ng-click="jumpToNotNgPage(gpsUrl)" ng-if="isGpsSuccess">{{gpsText}}</a>
-                        <span class="get-geo" ng-if="!isGpsSuccess">{{gpsText}}</span>
-                    </li>
-                </ul>
-                <h6>所有城市</h6>
-                <ul>
-                    <li ng-repeat="list in cityList">
-                        <a href="javascript:;" ng-click="jumpToNotNgPage(list.url)">{{list.text}}</a>
-                    </li>
-                </ul>
-            </div>
-        </script>
-        <script type="text/ng-template" id="/sh/static/template/public/search.html">
-            <section class="search-page"
-             lj-sh-autocomplete
-             url="{{searchUrl}}"
-             params="otherParams"
-             result-key="data.items"
-             option-key="text"
-             keyword="query"
-             model-value="{{modelValue}}"
-             placeholder="{{placeholder}}" select-callback="searchCallback(item)">
-    </section>
         </script>
         <script src="js/vender/zepto.min.js?v=1479137619829"></script>
         <script src="js/vender/require.min.js?v=1479137619829"></script>
         <script src="js/bootstrap.js?v=1479137619829"></script>
-        <!-- 统计相关的库文件 -->
-        <script type="text/javascript">
-    var appVersion="1.7.7";
-    var ga = ga || null;
-    //var $ULOG = $ULOG || null;
-
-    console.log('上海链家_wap_version_v'+appVersion);
-
-
-    //检测当前浏览器是否为微信打开
-    function checkIsWeiXin(){
-        var ua = navigator.userAgent.toLowerCase();
-        if(ua.match(/MicroMessenger/i)=="micromessenger") {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    //检测是否是今日头条中打开
-    function checkIsNewsArticle(){
-        var ua = navigator.userAgent.toLowerCase();
-        if(ua.match(/NewsArticle/i)=="newsarticle") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //检测url中是否含有某些参数
-    function checkUrlHasNoUTM(){
-        var urlStr = window.location.search;
-
-        //如果没有utm的任何一个参数
-        if(urlStr.indexOf('utm_') === -1){
-            return true;
-        }else{
-            return false;
-        }
-    }
-</script>
-        <!-- 只需到正式环境验收的统计工具:ubt growing lianjiaUlog -->
-        <!-- ubt 工具 -->
-        <script src="js/ljubt.js?v=1479137619829"></script>
         
     </body>
 </html>
