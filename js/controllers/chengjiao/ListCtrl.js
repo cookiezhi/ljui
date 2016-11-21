@@ -73,7 +73,7 @@ function(a, t) {
                 },
                 2e3)), a.isLastPage = 1 !== t.data.has_more_data, a.chengjiaoList.forEach(function(a) {
                     a.tagsText = a.tags ? l.buildTagsObj(a.tags, g.constants.tagsObj) : [],
-                    a.mainPhotoUrl || (a.mainPhotoUrl = "/sh/static/images/common/default_lianjia_small.png")
+                    a.mainPhotoUrl || (a.mainPhotoUrl = "/images/default_lianjia_small.png")
                 })), a.isPageDown = !1, a.totalCount = t.data.total_count ? t.data.total_count: 0, void 0) : void(a.feedbackInfo = {
                     show: !0,
                     msg: "请求出错，请重试！"

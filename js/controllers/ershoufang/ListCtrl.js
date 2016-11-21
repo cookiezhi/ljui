@@ -30,7 +30,7 @@ function(t, a) {
                 access_token: "7poanTTBCymmgE0FOn1oKp",
                 cityCode: e.constants.cityCode
             };
-            return a.get(e.api_host + "/dict/solrCode/info", {
+            return a.get(e.api_host + "/dict/solrCode/info.json", {
                 params: c
             }).success(function(a) {
                 if (!a) return void(t.feedbackInfo = {
@@ -61,7 +61,7 @@ function(t, a) {
                 access_token: "7poanTTBCymmgE0FOn1oKp",
                 cityCode: e.constants.cityCode
             };
-            return a.get(e.api_host + "/dict/city/info", {
+            return a.get(e.api_host + "/dict/city/info.json", {
                 params: c
             }).success(function(a) {
                 if (!a) return void(t.feedbackInfo = {
